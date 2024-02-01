@@ -25,6 +25,7 @@ def process_session(config, session_path):
     video_ext = config['video_extension']
 
     config_name = os.path.join(config['model_folder'], 'config.yaml')
+    config_shuffle = config['shuffle'] # edited on 20240201
 
     source_folder = os.path.join(session_path, pipeline_videos_raw)
     outdir = os.path.join(session_path, pipeline_pose)
@@ -61,6 +62,7 @@ def process_session(config, session_path):
                 print(video)
             with redirect_stdout(trap):
                 deeplabcut.analyze_videos(config_name, batch,
+                                          shuffle = config_shuffle,# edited on 20240201
                                           videotype=video_ext, save_as_csv=False,
                                           destfolder=outdir, TFGPUinference=False)
             for video in batch:
